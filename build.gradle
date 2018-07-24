@@ -1,17 +1,31 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.1.0'
+    }
+}
+
 apply plugin: 'java'
+apply plugin: 'org.junit.platform.gradle.plugin'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.2.0'
-    testCompile group: 'org.mockito', 'name': 'mockito-core', version: '2.19.1'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
 
-    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.2.0")
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.2.0'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.19.1'
+
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.2.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.2.0'
 }
 
 sourceSets {
@@ -32,4 +46,6 @@ sourceSets {
 }
 
 test {
+    include '**/*Test.*'
+    exclude '**/*ManualTest.*'
 }
