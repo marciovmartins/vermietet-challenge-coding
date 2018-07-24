@@ -1,21 +1,13 @@
-package vermietet.challenge.coding.consumption;
+package vermietet.challenge.coding.village;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import vermietet.challenge.coding.Environment;
-import vermietet.challenge.coding.village.Village;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
-@Repository
-public class JdbcConsumptionRepository implements ConsumptionRepository {
+public class JdbcVillageRepository implements VillageRepository {
     private final Connection connection;
 
-    @Autowired
-    JdbcConsumptionRepository(Environment environment) {
+    JdbcVillageRepository(Environment environment) {
         try {
             connection = DriverManager.getConnection( // TODO: must be extracted to a JdbcConnection.
                     environment.get("JDBC_URL"),
@@ -28,15 +20,19 @@ public class JdbcConsumptionRepository implements ConsumptionRepository {
     }
 
     @Override
-    public void insert(Consumption consumption, Village.Id villageId) {
-        String sql = "INSERT INTO consumptions (village_id, consumption) VALUES (?, ?)";
+    public Village findBy(Village.Id villageId) {
+        String sql = "SELECT name FROM villages WHERE id = ?";
 
         try {
             PreparedStatement stmt = this.connection.prepareStatement(sql);
             stmt.setInt(1, Integer.parseInt(villageId.toString()));
-            stmt.setDouble(2, Double.parseDouble(consumption.toString()));
 
-            stmt.execute();
+            ResultSet resultSet = stmt.executeQuery();
+            resultSet.next();
+            return new Village(
+                    villageId,
+                    new Village.Name(resultSet.getString(1))
+            );
         } catch (SQLException e) {
             throw new DatabaseExecutionErrorException(e);
         }

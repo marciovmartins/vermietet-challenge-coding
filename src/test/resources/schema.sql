@@ -7,3 +7,8 @@ create table consumptions
   on update CURRENT_TIMESTAMP
 );
 
+CREATE TABLE villages
+(
+  id   int unsigned PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  name varchar(100)             NOT NULL
+);
