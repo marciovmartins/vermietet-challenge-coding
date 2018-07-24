@@ -1,12 +1,16 @@
 package vermietet.challenge.coding.village;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import vermietet.challenge.coding.Environment;
 
 import java.sql.*;
 
+@Repository
 public class JdbcVillageRepository implements VillageRepository {
     private final Connection connection;
 
+    @Autowired
     JdbcVillageRepository(Environment environment) {
         try {
             connection = DriverManager.getConnection( // TODO: must be extracted to a JdbcConnection.
