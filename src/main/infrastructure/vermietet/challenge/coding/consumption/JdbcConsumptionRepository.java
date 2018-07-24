@@ -1,5 +1,7 @@
 package vermietet.challenge.coding.consumption;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import vermietet.challenge.coding.Environment;
 import vermietet.challenge.coding.Village;
 
@@ -8,9 +10,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+@Repository
 public class JdbcConsumptionRepository implements ConsumptionRepository {
     private final Connection connection;
 
+    @Autowired
     JdbcConsumptionRepository(Environment environment) {
         try {
             connection = DriverManager.getConnection(
