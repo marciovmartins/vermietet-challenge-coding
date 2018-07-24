@@ -2,7 +2,7 @@ package vermietet.challenge.coding.consumption;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vermietet.challenge.coding.Village;
+import vermietet.challenge.coding.village.Village;
 
 @Service
 public class DefaultConsumptionService implements ConsumptionService {

@@ -2,7 +2,7 @@ package vermietet.challenge.coding.consumption;
 
 import org.junit.jupiter.api.Test;
 import vermietet.challenge.coding.Environment;
-import vermietet.challenge.coding.Village;
+import vermietet.challenge.coding.village.Village;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;

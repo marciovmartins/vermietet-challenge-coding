@@ -1,4 +1,4 @@
-package vermietet.challenge.coding;
+package vermietet.challenge.coding.village;
 
 public class Village {
     public static class Id {

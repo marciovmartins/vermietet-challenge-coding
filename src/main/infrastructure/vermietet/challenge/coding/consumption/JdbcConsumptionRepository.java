@@ -3,7 +3,7 @@ package vermietet.challenge.coding.consumption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import vermietet.challenge.coding.Environment;
-import vermietet.challenge.coding.Village;
+import vermietet.challenge.coding.village.Village;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
