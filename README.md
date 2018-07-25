@@ -51,3 +51,4 @@ As a result, it's expected that your system will expose the following API:
 - I only did the "happy" path.
 - To keep it simple and skip possible configuration problems I did not use any database framework, as JPA or Hibernate.
 - ReportConsumptionRepository and villageRepository repository can be paginated.
+- I assume that the /consumption_report endpoint will only return duration in hours.
