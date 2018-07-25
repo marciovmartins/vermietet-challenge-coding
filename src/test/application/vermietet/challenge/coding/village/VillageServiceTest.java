@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class DefaultVillageServiceTest {
+class VillageServiceTest {
     @Test
     void testGetVillageById() {
         // setup
@@ -17,7 +17,7 @@ class DefaultVillageServiceTest {
         when(villageRepository.findBy(villageId)).thenReturn(village);
 
         // execution
-        VillageService villageService = new DefaultVillageService(villageRepository);
+        VillageService villageService = new VillageService(villageRepository);
         Village returnedVillage = villageService.getBy(villageId);
 
         // assertions
