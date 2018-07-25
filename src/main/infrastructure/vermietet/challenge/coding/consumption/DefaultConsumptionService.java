@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import vermietet.challenge.coding.village.Village;
 
 @Service
-public class DefaultConsumptionService implements ConsumptionService {
+public class DefaultConsumptionService implements ConsumptionService { // FIXME: move to 'application' and create a extension in infrastructure
     private final ConsumptionRepository consumptionRepository;
 
     @Autowired

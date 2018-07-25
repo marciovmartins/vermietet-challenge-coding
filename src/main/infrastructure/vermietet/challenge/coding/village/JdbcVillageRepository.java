@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import vermietet.challenge.coding.Environment;
 
 import java.sql.*;
+import java.util.List;
 
 @Repository
 public class JdbcVillageRepository implements VillageRepository {
@@ -40,6 +41,11 @@ public class JdbcVillageRepository implements VillageRepository {
         } catch (SQLException e) {
             throw new DatabaseExecutionErrorException(e);
         }
+    }
+
+    @Override
+    public List<Village> all() { // TODO: need to be implemented.
+        return null;
     }
 
     class DatabaseConnectionErrorException extends RuntimeException {

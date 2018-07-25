@@ -1,5 +1,9 @@
 package vermietet.challenge.coding.village;
 
-interface VillageRepository {
+import java.util.List;
+
+public interface VillageRepository {
     Village findBy(Village.Id villageId);
+
+    List<Village> all();
 }
