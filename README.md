@@ -9,7 +9,22 @@
 - I assumed that the /consumption_report endpoint will only return duration in hours.
 - Skip integration and acceptance tests because the cost and restrict time to finish the project.
 
-## Instructions
+## Instructions to Run
+
+### Prerequisites
+- docker-compose
+- java 8
+
+### Instructions
+Setup the application: `make install`
+
+Run the application server: `make up`
+
+The application is ready at the url: `http://localhost:8080` and you can see the possible endpoints below.
+
+Run tests: `make test`
+
+## Challenge
 You have to design and build the system that allows to receive and collect data about energy consumption from different 
 villages. As a result, your system should, on demand, give out the consumption report per village for the last 24h. As 
 a result of your work, we expect the end-to-end design of the system (a model, system architecture, technology, and 
