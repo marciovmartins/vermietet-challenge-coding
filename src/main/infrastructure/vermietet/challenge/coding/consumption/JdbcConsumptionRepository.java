@@ -5,10 +5,8 @@ import org.springframework.stereotype.Repository;
 import vermietet.challenge.coding.Environment;
 import vermietet.challenge.coding.village.Village;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.Instant;
 
 @Repository
 public class JdbcConsumptionRepository implements ConsumptionRepository {
@@ -29,12 +27,13 @@ public class JdbcConsumptionRepository implements ConsumptionRepository {
 
     @Override
     public void insert(Consumption consumption, Village.Id villageId) {
-        String sql = "INSERT INTO consumptions (village_id, consumption) VALUES (?, ?)";
+        String sql = "INSERT INTO consumptions (village_id, consumption, datetime) VALUES (?, ?, ?)";
 
         try {
             PreparedStatement stmt = this.connection.prepareStatement(sql);
             stmt.setInt(1, Integer.parseInt(villageId.toString()));
             stmt.setDouble(2, Double.parseDouble(consumption.toString()));
+            stmt.setTimestamp(3, Timestamp.from(Instant.now()));
 
             stmt.execute();
         } catch (SQLException e) {
