@@ -2,7 +2,7 @@
 
 ## About the solution
 
-- I did the project in approximately 5-6 hours.
+- I did the project in approximately 7-8 hours.
 - I only did the "happy" path.
 - To keep it simple and skip possible configuration problems I did not use any database framework, as JPA or Hibernate.
 - ReportConsumptionRepository and villageRepository repository can be paginated.
