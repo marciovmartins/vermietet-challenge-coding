@@ -9,11 +9,11 @@ public class Village {
         this.name = name;
     }
 
-    public Id getId() {
+    public Id id() {
         return id;
     }
 
-    public Name getName() {
+    public Name name() {
         return name;
     }
 
@@ -30,10 +30,10 @@ public class Village {
         }
     }
 
-    static class Name {
+    public static class Name {
         private final String value;
 
-        Name(String value) {
+        public Name(String value) {
             this.value = value;
         }
 

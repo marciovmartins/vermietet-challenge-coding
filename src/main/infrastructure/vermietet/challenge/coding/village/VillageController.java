@@ -19,8 +19,8 @@ public class VillageController {
         Village village = this.villageService.getBy(new Village.Id(Integer.parseInt(pVillageId)));
 
         return new VillageDTO(
-                Integer.parseInt(village.getId().toString()),
-                village.getName().toString()
+                Integer.parseInt(village.id().toString()),
+                village.name().toString()
         );
     }
 }

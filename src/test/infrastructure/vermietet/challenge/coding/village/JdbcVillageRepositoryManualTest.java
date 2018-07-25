@@ -19,7 +19,7 @@ class JdbcVillageRepositoryManualTest { // TODO: this test should be improved to
         JdbcVillageRepository repository = new JdbcVillageRepository(environment);
         Village village = repository.findBy(villageId);
 
-        System.out.println(village.getId());
-        System.out.println(village.getName());
+        System.out.println(village.id());
+        System.out.println(village.name());
     }
 }
