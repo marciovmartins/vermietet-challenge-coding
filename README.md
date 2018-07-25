@@ -1,5 +1,15 @@
 # Architecture & Coding
 
+## About the solution
+
+- I did the project in approximately 5-6 hours.
+- I only did the "happy" path.
+- To keep it simple and skip possible configuration problems I did not use any database framework, as JPA or Hibernate.
+- ReportConsumptionRepository and villageRepository repository can be paginated.
+- I assumed that the /consumption_report endpoint will only return duration in hours.
+- Skip integration and acceptance tests because the cost and restrict time to finish the project.
+
+## Instructions
 You have to design and build the system that allows to receive and collect data about energy consumption from different 
 villages. As a result, your system should, on demand, give out the consumption report per village for the last 24h. As 
 a result of your work, we expect the end-to-end design of the system (a model, system architecture, technology, and 
@@ -44,11 +54,3 @@ As a result, it's expected that your system will expose the following API:
     ]
 }    
 ```
-
-## About the solution
-
-- I did the project in approximately 5-6 hours.
-- I only did the "happy" path.
-- To keep it simple and skip possible configuration problems I did not use any database framework, as JPA or Hibernate.
-- ReportConsumptionRepository and villageRepository repository can be paginated.
-- I assume that the /consumption_report endpoint will only return duration in hours.

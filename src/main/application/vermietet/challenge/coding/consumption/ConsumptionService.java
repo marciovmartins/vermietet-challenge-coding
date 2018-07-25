@@ -2,6 +2,14 @@ package vermietet.challenge.coding.consumption;
 
 import vermietet.challenge.coding.village.Village;
 
-interface ConsumptionService {
-    void increment(Consumption consumption, Village.Id villageId); // TODO: change to Command InsertConsumption
+public class ConsumptionService {
+    private final ConsumptionRepository consumptionRepository;
+
+    public ConsumptionService(ConsumptionRepository consumptionRepository) {
+        this.consumptionRepository = consumptionRepository;
+    }
+
+    void increment(Consumption consumption, Village.Id villageId) {
+        this.consumptionRepository.insert(consumption, villageId);
+    }
 }

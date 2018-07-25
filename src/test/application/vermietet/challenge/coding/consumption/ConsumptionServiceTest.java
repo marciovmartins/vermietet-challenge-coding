@@ -6,7 +6,7 @@ import vermietet.challenge.coding.village.Village;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-class DefaultConsumptionServiceTest {
+class ConsumptionServiceTest {
     @Test
     void testIncrementConsumption() {
         // setup
@@ -15,7 +15,7 @@ class DefaultConsumptionServiceTest {
         Consumption consumption = mock(Consumption.class);
 
         // execution
-        ConsumptionService consumptionService = new DefaultConsumptionService(consumptionRepository);
+        ConsumptionService consumptionService = new ConsumptionService(consumptionRepository);
         consumptionService.increment(consumption, villageId);
 
         // assertion
