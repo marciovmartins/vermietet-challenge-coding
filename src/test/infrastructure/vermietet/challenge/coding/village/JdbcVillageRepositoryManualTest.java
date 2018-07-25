@@ -3,6 +3,8 @@ package vermietet.challenge.coding.village;
 import org.junit.jupiter.api.Test;
 import vermietet.challenge.coding.Environment;
 
+import java.util.List;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -21,5 +23,18 @@ class JdbcVillageRepositoryManualTest { // TODO: this test should be improved to
 
         System.out.println(village.id());
         System.out.println(village.name());
+    }
+
+    @Test
+    void testGetAll() {
+        Environment environment = mock(Environment.class);
+        when(environment.get("JDBC_URL")).thenReturn("jdbc:mysql://localhost:13000/vermietet");
+        when(environment.get("JDBC_USERNAME")).thenReturn("root");
+        when(environment.get("JDBC_PASSWORD")).thenReturn("");
+
+        JdbcVillageRepository repository = new JdbcVillageRepository(environment);
+        List<Village> villages = repository.all();
+
+        villages.forEach(v -> System.out.println(String.format("VillageId: %s, VillageName: %s", v.id(), v.name())));
     }
 }

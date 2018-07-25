@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import vermietet.challenge.coding.Environment;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -44,8 +45,24 @@ public class JdbcVillageRepository implements VillageRepository {
     }
 
     @Override
-    public List<Village> all() { // TODO: need to be implemented.
-        return null;
+    public List<Village> all() {
+        String sql = "SELECT id, name FROM villages";
+
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(sql);
+
+            List<Village> villages = new ArrayList<>();
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                villages.add(new Village(
+                        new Village.Id(resultSet.getInt(1)),
+                        new Village.Name(resultSet.getString(2))
+                ));
+            }
+            return villages;
+        } catch (SQLException e) {
+            throw new DatabaseExecutionErrorException(e);
+        }
     }
 
     class DatabaseConnectionErrorException extends RuntimeException {
