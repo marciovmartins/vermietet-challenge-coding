@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 import vermietet.challenge.coding.village.VillageRepository;
 
 @Service
-public class SpringReportConsumptionService extends ReportConsumptionService {
+public class SpringGetReportConsumption extends GetReportConsumption {
     @Autowired
-    SpringReportConsumptionService(
+    SpringGetReportConsumption(
             ReportConsumptionRepository reportConsumptionRepository,
             VillageRepository villageRepository
     ) {

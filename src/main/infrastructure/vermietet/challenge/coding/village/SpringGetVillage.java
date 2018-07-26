@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SpringVillageService extends VillageService {
+public class SpringGetVillage extends GetVillage {
     @Autowired
-    SpringVillageService(VillageRepository villageRepository) {
+    SpringGetVillage(VillageRepository villageRepository) {
         super(villageRepository);
     }
 }

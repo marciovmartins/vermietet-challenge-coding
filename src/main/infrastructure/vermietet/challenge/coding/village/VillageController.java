@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class VillageController {
-    private final VillageService villageService;
+    private final GetVillage getVillage;
 
     @Autowired
-    public VillageController(VillageService villageService) {
-        this.villageService = villageService;
+    public VillageController(GetVillage getVillage) {
+        this.getVillage = getVillage;
     }
 
     @GetMapping("/counter")
     public VillageDTO getVillage(@RequestParam("id") String pVillageId) {
-        Village village = this.villageService.getBy(new Village.Id(Integer.parseInt(pVillageId)));
+        Village village = this.getVillage.by(new Village.Id(Integer.parseInt(pVillageId)));
 
         return new VillageDTO(
                 Integer.parseInt(village.id().toString()),

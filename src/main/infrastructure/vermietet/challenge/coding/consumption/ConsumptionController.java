@@ -9,11 +9,11 @@ import vermietet.challenge.coding.village.Village;
 
 @RestController
 public class ConsumptionController {
-    private final ConsumptionService consumptionService;
+    private final IncrementConsumption incrementConsumption;
 
     @Autowired
-    public ConsumptionController(ConsumptionService consumptionService) {
-        this.consumptionService = consumptionService;
+    public ConsumptionController(IncrementConsumption incrementConsumption) {
+        this.incrementConsumption = incrementConsumption;
     }
 
     @PostMapping("/counter_callback")
@@ -21,7 +21,7 @@ public class ConsumptionController {
         Consumption consumption = new Consumption(input.getAmount());
         Village.Id villageId = new Village.Id(input.getCounterId());
 
-        this.consumptionService.increment(consumption, villageId);
+        this.incrementConsumption.with(consumption, villageId);
     }
 
     static class ConsumptionDTO {

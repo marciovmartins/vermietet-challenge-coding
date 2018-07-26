@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class ReportConsumptionServiceTest {
+class GetReportConsumptionTest {
     @Test
     void testGetReportConsumptionLastHour() {
         // setup
@@ -35,10 +35,10 @@ class ReportConsumptionServiceTest {
                 .thenReturn(Arrays.asList(villarribaReport, villabajoReport));
 
         // execution
-        ReportConsumptionService reportConsumptionService = new ReportConsumptionService(
+        GetReportConsumption getReportConsumption = new GetReportConsumption(
                 reportConsumptionRepository, villageRepository
         );
-        List<ReportConsumption> reports = reportConsumptionService.getReportConsumption(lastHours);
+        List<ReportConsumption> reports = getReportConsumption.in(lastHours);
 
         // assertions
         assertEquals(2, reports.size());

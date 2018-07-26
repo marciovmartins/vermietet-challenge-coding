@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SpringConsumptionService extends ConsumptionService {
+public class SpringIncrementConsumption extends IncrementConsumption {
     @Autowired
-    public SpringConsumptionService(ConsumptionRepository consumptionRepository) {
+    public SpringIncrementConsumption(ConsumptionRepository consumptionRepository) {
         super(consumptionRepository);
     }
 }

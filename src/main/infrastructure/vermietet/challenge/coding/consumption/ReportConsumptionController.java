@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 
 @RestController
 public class ReportConsumptionController {
-    private final ReportConsumptionService reportConsumptionService;
+    private final GetReportConsumption getReportConsumption;
 
     @Autowired
-    public ReportConsumptionController(ReportConsumptionService reportConsumptionService) {
-        this.reportConsumptionService = reportConsumptionService;
+    public ReportConsumptionController(GetReportConsumption getReportConsumption) {
+        this.getReportConsumption = getReportConsumption;
     }
 
     @GetMapping("/consumption_report")
@@ -24,7 +24,7 @@ public class ReportConsumptionController {
             @RequestParam(name = "duration", defaultValue = "24h", required = false) String pDuration
     ) { // TODO: tests need to be implemented.
         LastHours lastHours = getLastHours(pDuration);
-        List<ReportConsumption> reports = this.reportConsumptionService.getReportConsumption(lastHours);
+        List<ReportConsumption> reports = this.getReportConsumption.in(lastHours);
 
         return reports.stream().map(r -> new ReportConsumptionDTO(
                 r.villageName(),

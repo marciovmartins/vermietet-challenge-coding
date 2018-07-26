@@ -1,13 +1,13 @@
 package vermietet.challenge.coding.village;
 
-public class VillageService {
+public class GetVillage {
     private final VillageRepository villageRepository;
 
-    VillageService(VillageRepository villageRepository) {
+    GetVillage(VillageRepository villageRepository) {
         this.villageRepository = villageRepository;
     }
 
-    Village getBy(Village.Id villageId) {
+    Village by(Village.Id villageId) {
         return this.villageRepository.findBy(villageId);
     }
 }
