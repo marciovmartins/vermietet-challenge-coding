@@ -32,7 +32,9 @@ public class ReportConsumptionController {
         )).collect(Collectors.toList());
     }
 
-    private LastHours getLastHours(@RequestParam(name = "duration", defaultValue = "24h", required = false) String pDuration) {
+    private LastHours getLastHours(
+            @RequestParam(name = "duration", defaultValue = "24h", required = false) String pDuration
+    ) {
         String durationSanitized = pDuration.replace("h", "");
         return new LastHours(Integer.parseInt(durationSanitized));
     }
