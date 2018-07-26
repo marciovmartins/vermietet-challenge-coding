@@ -25,7 +25,7 @@ public class JdbcReportConsumptionRepository implements ReportConsumptionReposit
         String sql = String.format(
                 "SELECT c.village_id, SUM(c.consumption), v.name " +
                         "FROM consumptions c " +
-                        "INNER JOIN villages v ON (v.id = c.village_id)" +
+                        "INNER JOIN villages v ON (v.id = c.village_id)" + // TODO: should I include villages in query?
                         "WHERE c.village_id IN (%s) " +
                         "  AND datetime >= ?" +
                         "GROUP BY c.village_id",
@@ -33,12 +33,12 @@ public class JdbcReportConsumptionRepository implements ReportConsumptionReposit
         );
 
         Object[] villageIds = this.getVillageIdsFrom(villages);
-        Date lastHoursInDate = this.getDateInHoursFrom(lastHours);
+        Timestamp lastHoursInTimestamp = this.getDateInHoursFrom(lastHours);
 
         try {
             PreparedStatement stmt = this.connection.prepareStatement(sql);
             setValues(stmt, villageIds);
-            stmt.setDate(villages.size() + 1, lastHoursInDate);
+            stmt.setTimestamp(villages.size() + 1, lastHoursInTimestamp);
 
             List<ReportConsumption> reports = new ArrayList<>();
             ResultSet resultSet = stmt.executeQuery();
@@ -60,10 +60,10 @@ public class JdbcReportConsumptionRepository implements ReportConsumptionReposit
         return villages.stream().map(v -> v.id().toString()).toArray();
     }
 
-    private Date getDateInHoursFrom(LastHours lastHours) {
+    private Timestamp getDateInHoursFrom(LastHours lastHours) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.HOUR, -1 * Integer.parseInt(lastHours.toString()));
-        return new Date(cal.getTimeInMillis());
+        return new Timestamp(cal.getTimeInMillis());
     }
 
     private String preparePlaceHolders(int length) { // TODO: extract to another place
