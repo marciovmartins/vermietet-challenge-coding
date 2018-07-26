@@ -2,10 +2,13 @@ package vermietet.challenge.coding.consumption;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import vermietet.challenge.coding.Environment;
+import vermietet.challenge.coding.JdbcConnection;
 import vermietet.challenge.coding.village.Village;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.Instant;
 
 @Repository
@@ -13,16 +16,8 @@ public class JdbcConsumptionRepository implements ConsumptionRepository {
     private final Connection connection;
 
     @Autowired
-    JdbcConsumptionRepository(Environment environment) {
-        try {
-            connection = DriverManager.getConnection( // TODO: must be extracted to a JdbcConnection.
-                    environment.get("JDBC_URL"),
-                    environment.get("JDBC_USERNAME"),
-                    environment.get("JDBC_PASSWORD")
-            );
-        } catch (SQLException e) {
-            throw new DatabaseConnectionErrorException(e);
-        }
+    JdbcConsumptionRepository(JdbcConnection jdbcConnection) {
+        connection = jdbcConnection.instance();
     }
 
     @Override
@@ -38,12 +33,6 @@ public class JdbcConsumptionRepository implements ConsumptionRepository {
             stmt.execute();
         } catch (SQLException e) {
             throw new DatabaseExecutionErrorException(e);
-        }
-    }
-
-    class DatabaseConnectionErrorException extends RuntimeException {
-        DatabaseConnectionErrorException(SQLException e) {
-            super(e);
         }
     }
 
