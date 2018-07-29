@@ -28,6 +28,17 @@ public class Village {
         public String toString() {
             return String.valueOf(this.value);
         }
+
+        @Override
+        public int hashCode() {
+            return value;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return obj instanceof Id
+                    && ((Id) obj).value == value;
+        }
     }
 
     public static class Name {
