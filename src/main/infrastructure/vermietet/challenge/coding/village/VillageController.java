@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@SuppressWarnings("unused")
 public class VillageController {
     private final GetVillage getVillage;
 
@@ -27,9 +28,9 @@ public class VillageController {
 
     public static class VillageDTO {
         @JsonProperty("id")
-        private Integer id;
+        final private Integer id;
         @JsonProperty("village_name")
-        private String villageName;
+        final private String villageName;
 
         VillageDTO(Integer id, String villageName) {
             this.id = id;

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vermietet.challenge.coding.village.Village;
 
 @RestController
+@SuppressWarnings("unused")
 public class ConsumptionController {
     private final IncrementConsumption incrementConsumption;
 
@@ -39,3 +40,4 @@ public class ConsumptionController {
         }
     }
 }
+

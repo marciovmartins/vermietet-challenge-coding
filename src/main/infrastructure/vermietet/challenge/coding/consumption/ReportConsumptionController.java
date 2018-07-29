@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@SuppressWarnings("unused")
 public class ReportConsumptionController {
     private final GetReportConsumption getReportConsumption;
 
@@ -39,11 +40,11 @@ public class ReportConsumptionController {
         return new LastHours(Integer.parseInt(durationSanitized));
     }
 
-    public static class ReportConsumptionDTO {
+    static class ReportConsumptionDTO {
         @JsonProperty("village_name")
-        private String villageName;
+        final private String villageName;
         @JsonProperty("consumption")
-        private String consumption;
+        final private String consumption;
 
         ReportConsumptionDTO(Village.Name villageName, Consumption consumption) {
             this.villageName = villageName.toString();

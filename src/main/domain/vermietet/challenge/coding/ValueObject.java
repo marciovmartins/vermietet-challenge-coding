@@ -3,7 +3,7 @@ package vermietet.challenge.coding;
 public class ValueObject {
     private final Object value;
 
-    public ValueObject(Object value) {
+    protected ValueObject(Object value) {
         this.value = value;
     }
 
