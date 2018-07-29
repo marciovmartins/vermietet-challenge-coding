@@ -1,6 +1,6 @@
 package vermietet.challenge.coding.consumption;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import vermietet.challenge.coding.village.Village;
 import vermietet.challenge.coding.village.VillageRepository;
 
@@ -12,9 +12,9 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class GetReportConsumptionTest {
+public class GetReportConsumptionTest {
     @Test
-    void testGetReportConsumptionLastHour() {
+    public void testGetReportConsumptionLastHour() {
         // setup
         Village villarriba = mock(Village.class);
         Village villabajo = mock(Village.class);

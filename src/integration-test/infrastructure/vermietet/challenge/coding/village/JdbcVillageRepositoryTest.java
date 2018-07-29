@@ -1,6 +1,6 @@
 package vermietet.challenge.coding.village;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import vermietet.challenge.coding.Environment;
 import vermietet.challenge.coding.JdbcConnection;
 
@@ -9,9 +9,9 @@ import java.util.List;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class JdbcVillageRepositoryManualTest { // TODO: this test should be improved to be automated.
+public class JdbcVillageRepositoryTest { // TODO: this test should be improved to be automated.
     @Test
-    void testGetVillageById() {
+    public void testGetVillageById() {
         Environment environment = mock(Environment.class);
         when(environment.get("JDBC_URL")).thenReturn("jdbc:mysql://localhost:13000/vermietet");
         when(environment.get("JDBC_USERNAME")).thenReturn("root");
@@ -28,7 +28,7 @@ class JdbcVillageRepositoryManualTest { // TODO: this test should be improved to
     }
 
     @Test
-    void testGetAll() {
+    public void testGetAll() {
         Environment environment = mock(Environment.class);
         when(environment.get("JDBC_URL")).thenReturn("jdbc:mysql://localhost:13000/vermietet");
         when(environment.get("JDBC_USERNAME")).thenReturn("root");

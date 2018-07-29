@@ -3,13 +3,11 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.1.0'
         classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE'
     }
 }
 
 apply plugin: 'java'
-apply plugin: 'org.junit.platform.gradle.plugin'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
@@ -22,36 +20,53 @@ repositories {
     jcenter()
 }
 
-dependencies {
-    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.3.RELEASE'
-
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.2.0'
-    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.19.1'
-    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.0.3.RELEASE'
-
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.2.0'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.2.0'
-}
-
 sourceSets {
     main {
         java {
-            srcDirs 'src/main/application'
-            srcDirs 'src/main/domain'
-            srcDirs 'src/main/infrastructure'
+            srcDirs = ["src/main/application", "src/main/domain", "src/main/infrastructure"]
         }
     }
     test {
         java {
-            srcDirs 'src/test/application'
-            srcDirs 'src/test/domain'
-            srcDirs 'src/test/infrastructure'
+            srcDirs = ["src/test/application", "src/test/domain"]
+        }
+    }
+    integrationTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDirs = ["src/integration-test/infrastructure"]
         }
     }
 }
 
-test {
-    include '**/*Test.*'
-    exclude '**/*ManualTest.*'
+configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+    integrationTestImplementation.extendsFrom testImplementation
+    integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
+}
+
+dependencies {
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.3.RELEASE'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.19.1'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.0.3.RELEASE'
+}
+
+task integrationTest(type: Test) {
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+}
+
+check.dependsOn integrationTest
+integrationTest.mustRunAfter test
+
+idea {
+    module {
+        testSourceDirs += project.sourceSets.integrationTest.java.srcDirs
+        testSourceDirs += project.sourceSets.integrationTest.resources.srcDirs
+    }
 }

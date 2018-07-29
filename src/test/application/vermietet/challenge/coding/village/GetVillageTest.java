@@ -1,14 +1,14 @@
 package vermietet.challenge.coding.village;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class GetVillageTest {
+public class GetVillageTest {
     @Test
-    void testGetVillageById() {
+    public void testGetVillageById() {
         // setup
         Village.Id villageId = new Village.Id(1);
         Village village = mock(Village.class);

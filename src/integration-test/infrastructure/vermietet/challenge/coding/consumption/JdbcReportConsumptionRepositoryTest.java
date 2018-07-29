@@ -1,6 +1,6 @@
 package vermietet.challenge.coding.consumption;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import vermietet.challenge.coding.Environment;
 import vermietet.challenge.coding.JdbcConnection;
 import vermietet.challenge.coding.village.Village;
@@ -11,9 +11,9 @@ import java.util.List;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class JdbcReportConsumptionRepositoryManualTest {
+public class JdbcReportConsumptionRepositoryTest { // TODO: this test should be improved to be automated.
     @Test
-    void testGetReportConsumptionInLastHour() {
+    public void testGetReportConsumptionInLastHour() {
         Environment environment = mock(Environment.class);
         when(environment.get("JDBC_URL")).thenReturn("jdbc:mysql://localhost:13000/vermietet");
         when(environment.get("JDBC_USERNAME")).thenReturn("root");
