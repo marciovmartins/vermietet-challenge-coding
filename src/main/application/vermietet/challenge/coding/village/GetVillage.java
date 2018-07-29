@@ -8,6 +8,6 @@ public class GetVillage {
     }
 
     Village by(Village.Id villageId) {
-        return this.villageRepository.findBy(villageId);
+        return villageRepository.findBy(villageId);
     }
 }

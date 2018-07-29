@@ -17,7 +17,7 @@ public class VillageController {
 
     @GetMapping("/counter")
     public VillageDTO getVillage(@RequestParam("id") String pVillageId) {
-        Village village = this.getVillage.by(new Village.Id(Integer.parseInt(pVillageId)));
+        Village village = getVillage.by(new Village.Id(Integer.parseInt(pVillageId)));
 
         return new VillageDTO(
                 Integer.parseInt(village.id().toString()),

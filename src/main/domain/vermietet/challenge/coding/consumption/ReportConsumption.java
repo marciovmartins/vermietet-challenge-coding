@@ -14,10 +14,10 @@ class ReportConsumption extends ValueObject {
     }
 
     Village.Name villageName() {
-        return this.villageName;
+        return villageName;
     }
 
     Consumption consumption() {
-        return this.consumption;
+        return consumption;
     }
 }

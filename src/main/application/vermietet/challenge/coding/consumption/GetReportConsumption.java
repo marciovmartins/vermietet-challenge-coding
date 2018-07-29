@@ -18,7 +18,7 @@ class GetReportConsumption {
     }
 
     List<ReportConsumption> in(LastHours lastHours) {
-        List<Village> villages = this.villageRepository.all();
+        List<Village> villages = villageRepository.all();
         return reportConsumptionRepository.getReportConsumptionBy(villages, lastHours);
     }
 }

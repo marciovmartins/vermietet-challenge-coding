@@ -25,7 +25,7 @@ public class JdbcVillageRepository implements VillageRepository {
         String sql = "SELECT name FROM villages WHERE id = ?";
 
         try {
-            PreparedStatement stmt = this.connection.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, Integer.parseInt(villageId.toString()));
 
             ResultSet resultSet = stmt.executeQuery();
@@ -44,7 +44,7 @@ public class JdbcVillageRepository implements VillageRepository {
         String sql = "SELECT id, name FROM villages";
 
         try {
-            PreparedStatement stmt = this.connection.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
 
             List<Village> villages = new ArrayList<>();
             ResultSet resultSet = stmt.executeQuery();

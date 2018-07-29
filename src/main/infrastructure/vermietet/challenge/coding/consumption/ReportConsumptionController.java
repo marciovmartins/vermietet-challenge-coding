@@ -24,7 +24,7 @@ public class ReportConsumptionController {
             @RequestParam(name = "duration", defaultValue = "24h", required = false) String pDuration
     ) { // TODO: tests need to be implemented.
         LastHours lastHours = getLastHours(pDuration);
-        List<ReportConsumption> reports = this.getReportConsumption.in(lastHours);
+        List<ReportConsumption> reports = getReportConsumption.in(lastHours);
 
         return reports.stream().map(r -> new ReportConsumptionDTO(
                 r.villageName(),

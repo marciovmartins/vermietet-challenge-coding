@@ -21,7 +21,7 @@ public class ConsumptionController {
         Consumption consumption = new Consumption(input.getAmount());
         Village.Id villageId = new Village.Id(input.getCounterId());
 
-        this.incrementConsumption.with(consumption, villageId);
+        incrementConsumption.with(consumption, villageId);
     }
 
     static class ConsumptionDTO {

@@ -32,11 +32,11 @@ public class JdbcReportConsumptionRepository implements ReportConsumptionReposit
                 preparePlaceHolders(villages.size())
         );
 
-        Object[] villageIds = this.getVillageIdsFrom(villages);
-        Timestamp lastHoursInTimestamp = this.getDateInHoursFrom(lastHours);
+        Object[] villageIds = getVillageIdsFrom(villages);
+        Timestamp lastHoursInTimestamp = getDateInHoursFrom(lastHours);
 
         try {
-            PreparedStatement stmt = this.connection.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             setValues(stmt, villageIds);
             stmt.setTimestamp(villages.size() + 1, lastHoursInTimestamp);
 

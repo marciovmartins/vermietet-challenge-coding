@@ -10,6 +10,6 @@ public class IncrementConsumption {
     }
 
     void with(Consumption consumption, Village.Id villageId) {
-        this.consumptionRepository.insert(consumption, villageId);
+        consumptionRepository.insert(consumption, villageId);
     }
 }
