@@ -41,5 +41,16 @@ public class Village {
         public String toString() {
             return this.value;
         }
+
+        @Override
+        public int hashCode() {
+            return this.value.hashCode();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return obj instanceof Name
+                    && ((Name) obj).value.equals(this.value);
+        }
     }
 }
