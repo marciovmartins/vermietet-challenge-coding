@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -36,13 +37,14 @@ public class GetReportConsumptionTest {
 
         // execution
         GetReportConsumption getReportConsumption = new GetReportConsumption(
-                reportConsumptionRepository, villageRepository
+                reportConsumptionRepository,
+                villageRepository
         );
         List<ReportConsumption> reports = getReportConsumption.in(lastHours);
 
         // assertions
         assertEquals(2, reports.size());
-        assertEquals(villarribaReport, reports.get(0));
-        assertEquals(villabajoReport, reports.get(1));
+        assertTrue(reports.contains(villarribaReport));
+        assertTrue(reports.contains(villabajoReport));
     }
 }

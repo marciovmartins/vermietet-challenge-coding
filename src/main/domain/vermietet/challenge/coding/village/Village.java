@@ -1,5 +1,7 @@
 package vermietet.challenge.coding.village;
 
+import vermietet.challenge.coding.ValueObject;
+
 public class Village {
     private final Id id;
     private final Name name;
@@ -17,51 +19,15 @@ public class Village {
         return name;
     }
 
-    public static class Id {
-        private final int value;
-
+    public static class Id extends ValueObject {
         public Id(int value) {
-            this.value = value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(this.value);
-        }
-
-        @Override
-        public int hashCode() {
-            return value;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            return obj instanceof Id
-                    && ((Id) obj).value == value;
+            super(value);
         }
     }
 
-    public static class Name {
-        private final String value;
-
+    public static class Name extends ValueObject {
         public Name(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String toString() {
-            return this.value;
-        }
-
-        @Override
-        public int hashCode() {
-            return this.value.hashCode();
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            return obj instanceof Name
-                    && ((Name) obj).value.equals(this.value);
+            super(value);
         }
     }
 }

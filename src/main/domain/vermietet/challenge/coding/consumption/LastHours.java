@@ -1,14 +1,9 @@
 package vermietet.challenge.coding.consumption;
 
-class LastHours {
-    private final int value;
+import vermietet.challenge.coding.ValueObject;
 
+class LastHours extends ValueObject {
     LastHours(int value) {
-        this.value = value;
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(this.value);
+        super(value);
     }
 }
