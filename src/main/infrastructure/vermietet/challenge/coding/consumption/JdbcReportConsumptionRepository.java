@@ -2,7 +2,8 @@ package vermietet.challenge.coding.consumption;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import vermietet.challenge.coding.JdbcConnection;
+import vermietet.challenge.coding.utils.jdbc.JdbcConnection;
+import vermietet.challenge.coding.utils.jdbc.JdbcExecutionErrorException;
 import vermietet.challenge.coding.village.Village;
 
 import java.sql.*;
@@ -52,7 +53,7 @@ public class JdbcReportConsumptionRepository implements ReportConsumptionReposit
             }
             return reports;
         } catch (SQLException e) {
-            throw new DatabaseExecutionErrorException(e);
+            throw new JdbcExecutionErrorException(e);
         }
     }
 
@@ -73,12 +74,6 @@ public class JdbcReportConsumptionRepository implements ReportConsumptionReposit
     private void setValues(PreparedStatement preparedStatement, Object... values) throws SQLException { // TODO: extract to another place
         for (int i = 0; i < values.length; i++) {
             preparedStatement.setObject(i + 1, values[i]);
-        }
-    }
-
-    class DatabaseExecutionErrorException extends RuntimeException {
-        DatabaseExecutionErrorException(SQLException e) {
-            super(e);
         }
     }
 }

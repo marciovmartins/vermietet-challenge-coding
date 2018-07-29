@@ -4,7 +4,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import vermietet.challenge.coding.Environment;
-import vermietet.challenge.coding.JdbcConnection;
+import vermietet.challenge.coding.utils.jdbc.JdbcConnection;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;

@@ -2,7 +2,8 @@ package vermietet.challenge.coding.consumption;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import vermietet.challenge.coding.JdbcConnection;
+import vermietet.challenge.coding.utils.jdbc.JdbcConnection;
+import vermietet.challenge.coding.utils.jdbc.JdbcExecutionErrorException;
 import vermietet.challenge.coding.village.Village;
 
 import java.sql.Connection;
@@ -32,13 +33,7 @@ public class JdbcConsumptionRepository implements ConsumptionRepository {
 
             stmt.execute();
         } catch (SQLException e) {
-            throw new DatabaseExecutionErrorException(e);
-        }
-    }
-
-    class DatabaseExecutionErrorException extends RuntimeException {
-        DatabaseExecutionErrorException(SQLException e) {
-            super(e);
+            throw new JdbcExecutionErrorException(e);
         }
     }
 }

@@ -2,7 +2,8 @@ package vermietet.challenge.coding.village;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import vermietet.challenge.coding.JdbcConnection;
+import vermietet.challenge.coding.utils.jdbc.JdbcConnection;
+import vermietet.challenge.coding.utils.jdbc.JdbcExecutionErrorException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,7 +36,7 @@ public class JdbcVillageRepository implements VillageRepository {
                     new Village.Name(resultSet.getString(1))
             );
         } catch (SQLException e) {
-            throw new DatabaseExecutionErrorException(e);
+            throw new JdbcExecutionErrorException(e);
         }
     }
 
@@ -56,13 +57,7 @@ public class JdbcVillageRepository implements VillageRepository {
             }
             return villages;
         } catch (SQLException e) {
-            throw new DatabaseExecutionErrorException(e);
-        }
-    }
-
-    class DatabaseExecutionErrorException extends RuntimeException {
-        DatabaseExecutionErrorException(SQLException e) {
-            super(e);
+            throw new JdbcExecutionErrorException(e);
         }
     }
 }

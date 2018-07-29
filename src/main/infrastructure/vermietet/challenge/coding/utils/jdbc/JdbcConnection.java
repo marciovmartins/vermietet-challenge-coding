@@ -1,6 +1,7 @@
-package vermietet.challenge.coding;
+package vermietet.challenge.coding.utils.jdbc;
 
 import org.springframework.stereotype.Component;
+import vermietet.challenge.coding.Environment;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -31,4 +32,5 @@ public class JdbcConnection {
             super(e);
         }
     }
+
 }
