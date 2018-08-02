@@ -9,7 +9,24 @@ services:
     ports:
       - 13000:3306
     volumes:
-      - ./setup/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./setup/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+
+  app_test:
+    image: openjdk:8-jdk-alpine
+    environment:
+      - JDBC_URL=jdbc:mysql://db_test:3306/vermietet
+      - JDBC_USERNAME=root
+      - JDBC_PASSWORD=
+      - GRADLE_HOME=/usr/src/vermietet/.gradle-test
+      - GRADLE_OPTS=-Dorg.gradle.project.buildDir=/usr/src/vermietet/build-test
+    ports:
+      - 13002:8080
+    volumes:
+      - ./:/usr/src/vermietet
+    working_dir: /usr/src/vermietet
+    command: ./gradlew bootRun
+    depends_on:
+      - db_test
   db_test:
     image: mysql:5.5.51
     environment:
@@ -18,4 +35,4 @@ services:
     ports:
       - 13001:3306
     volumes:
-      - ./setup/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./setup/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
