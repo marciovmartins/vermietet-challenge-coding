@@ -63,7 +63,7 @@ public class JdbcReportConsumptionRepository implements ReportConsumptionReposit
 
     private Timestamp getDateInHoursFrom(LastHours lastHours) {
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.HOUR, -1 * Integer.parseInt(lastHours.toString()));
+        cal.add(Calendar.HOUR, -1 * lastHours.toInteger());
         return new Timestamp(cal.getTimeInMillis());
     }
 

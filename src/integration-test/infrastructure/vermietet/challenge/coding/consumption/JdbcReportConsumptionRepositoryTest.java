@@ -55,7 +55,7 @@ public class JdbcReportConsumptionRepositoryTest extends JdbcTest {
         villages.add(villarriba);
         villages.add(villabajo);
 
-        LastHours lastHours = new LastHours(1);
+        LastHours lastHours = new LastHours("1h");
 
         // executions
         ReportConsumptionRepository reportConsumptionRepository = new JdbcReportConsumptionRepository(connection);

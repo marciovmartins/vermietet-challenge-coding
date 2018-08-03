@@ -27,7 +27,7 @@ public class GetReportConsumptionTest {
         VillageRepository villageRepository = mock(VillageRepository.class);
         when(villageRepository.all()).thenReturn(villages);
 
-        LastHours lastHours = new LastHours(1);
+        LastHours lastHours = new LastHours("1h");
         ReportConsumption villarribaReport = mock(ReportConsumption.class);
         ReportConsumption villabajoReport = mock(ReportConsumption.class);
 
@@ -40,7 +40,7 @@ public class GetReportConsumptionTest {
                 reportConsumptionRepository,
                 villageRepository
         );
-        List<ReportConsumption> reports = getReportConsumption.in(1);
+        List<ReportConsumption> reports = getReportConsumption.in(lastHours.toString());
 
         // assertions
         assertEquals(2, reports.size());
