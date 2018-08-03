@@ -20,15 +20,15 @@ public class ReportConsumptionController { // TODO: tests need to be implemented
     }
 
     @GetMapping("/consumption_report")
-    public List<HashMap<String, String>> getConsumptionReport(
+    public List<HashMap<String, Object>> getConsumptionReport(
             @RequestParam(name = "duration", defaultValue = "24h", required = false) String duration
     ) {
         int sanitizedLastHours = getLastHours(duration);
         List<ReportConsumption> reports = getReportConsumption.in(sanitizedLastHours);
 
-        return reports.stream().map(r -> new HashMap<String, String>() {{
+        return reports.stream().map(r -> new HashMap<String, Object>() {{
             put("village_name", r.villageName().toString());
-            put("consumption", r.consumption().toString());
+            put("consumption", Double.parseDouble(r.consumption().toString()));
         }}).collect(Collectors.toList());
     }
 
