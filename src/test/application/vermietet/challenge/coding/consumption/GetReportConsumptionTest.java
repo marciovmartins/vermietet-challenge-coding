@@ -40,7 +40,7 @@ public class GetReportConsumptionTest {
                 reportConsumptionRepository,
                 villageRepository
         );
-        List<ReportConsumption> reports = getReportConsumption.in(lastHours);
+        List<ReportConsumption> reports = getReportConsumption.in(1);
 
         // assertions
         assertEquals(2, reports.size());

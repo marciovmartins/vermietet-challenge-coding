@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @SuppressWarnings("unused")
-public class ReportConsumptionController {
+public class ReportConsumptionController { // TODO: tests need to be implemented.
     private final GetReportConsumption getReportConsumption;
 
     @Autowired
@@ -22,9 +22,9 @@ public class ReportConsumptionController {
     @GetMapping("/consumption_report")
     public List<HashMap<String, String>> getConsumptionReport(
             @RequestParam(name = "duration", defaultValue = "24h", required = false) String duration
-    ) { // TODO: tests need to be implemented.
-        LastHours lastHours = getLastHours(duration);
-        List<ReportConsumption> reports = getReportConsumption.in(lastHours);
+    ) {
+        int sanitizedLastHours = getLastHours(duration);
+        List<ReportConsumption> reports = getReportConsumption.in(sanitizedLastHours);
 
         return reports.stream().map(r -> new HashMap<String, String>() {{
             put("village_name", r.villageName().toString());
@@ -32,8 +32,8 @@ public class ReportConsumptionController {
         }}).collect(Collectors.toList());
     }
 
-    private LastHours getLastHours(String duration) {
+    private int getLastHours(String duration) {
         String durationSanitized = duration.replace("h", "");
-        return new LastHours(Integer.parseInt(durationSanitized));
+        return Integer.parseInt(durationSanitized);
     }
 }
