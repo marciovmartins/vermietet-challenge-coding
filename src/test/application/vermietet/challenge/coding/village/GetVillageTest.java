@@ -3,6 +3,7 @@ package vermietet.challenge.coding.village;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -14,11 +15,11 @@ public class GetVillageTest {
         Village village = mock(Village.class);
 
         VillageRepository villageRepository = mock(VillageRepository.class);
-        when(villageRepository.findBy(villageId)).thenReturn(village);
+        when(villageRepository.findBy(eq(villageId))).thenReturn(village);
 
         // execution
         GetVillage getVillage = new GetVillage(villageRepository);
-        Village returnedVillage = getVillage.by(villageId);
+        Village returnedVillage = getVillage.by(1);
 
         // assertions
         assertEquals(village, returnedVillage);

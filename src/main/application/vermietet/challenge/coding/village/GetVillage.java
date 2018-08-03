@@ -7,7 +7,8 @@ public class GetVillage {
         this.villageRepository = villageRepository;
     }
 
-    Village by(Village.Id villageId) {
+    Village by(Integer pVillageId) {
+        Village.Id villageId = new Village.Id(pVillageId);
         return villageRepository.findBy(villageId);
     }
 }
