@@ -1,12 +1,11 @@
 package vermietet.challenge.coding.consumption;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import vermietet.challenge.coding.village.Village;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,42 +20,20 @@ public class ReportConsumptionController {
     }
 
     @GetMapping("/consumption_report")
-    public List<ReportConsumptionDTO> getConsumptionReport(
-            @RequestParam(name = "duration", defaultValue = "24h", required = false) String pDuration
+    public List<HashMap<String, String>> getConsumptionReport(
+            @RequestParam(name = "duration", defaultValue = "24h", required = false) String duration
     ) { // TODO: tests need to be implemented.
-        LastHours lastHours = getLastHours(pDuration);
+        LastHours lastHours = getLastHours(duration);
         List<ReportConsumption> reports = getReportConsumption.in(lastHours);
 
-        return reports.stream().map(r -> new ReportConsumptionDTO(
-                r.villageName(),
-                r.consumption()
-        )).collect(Collectors.toList());
+        return reports.stream().map(r -> new HashMap<String, String>() {{
+            put("village_name", r.villageName().toString());
+            put("consumption", r.consumption().toString());
+        }}).collect(Collectors.toList());
     }
 
-    private LastHours getLastHours(
-            @RequestParam(name = "duration", defaultValue = "24h", required = false) String pDuration
-    ) {
-        String durationSanitized = pDuration.replace("h", "");
+    private LastHours getLastHours(String duration) {
+        String durationSanitized = duration.replace("h", "");
         return new LastHours(Integer.parseInt(durationSanitized));
-    }
-
-    static class ReportConsumptionDTO {
-        @JsonProperty("village_name")
-        final private String villageName;
-        @JsonProperty("consumption")
-        final private String consumption;
-
-        ReportConsumptionDTO(Village.Name villageName, Consumption consumption) {
-            this.villageName = villageName.toString();
-            this.consumption = consumption.toString();
-        }
-
-        public String getVillageName() {
-            return villageName;
-        }
-
-        public String getConsumption() {
-            return consumption;
-        }
     }
 }
