@@ -3,22 +3,26 @@ package vermietet.challenge.coding.consumption;
 import org.junit.Test;
 import vermietet.challenge.coding.village.Village;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class IncrementConsumptionTest {
     @Test
-    public void testIncrementConsumption() {
+    public void testIncrementConsumption() { // TODO: Is there a way to replace Village.Id and Consumption by mocks?
         // setup
+        double consumptionValue = 1.0;
+        int villageIdValue = 1;
+
         ConsumptionRepository consumptionRepository = mock(ConsumptionRepository.class);
-        Village.Id villageId = mock(Village.Id.class);
-        Consumption consumption = mock(Consumption.class);
+        Village.Id villageId = new Village.Id(villageIdValue);
+        Consumption consumption = new Consumption(consumptionValue);
 
         // execution
         IncrementConsumption incrementConsumption = new IncrementConsumption(consumptionRepository);
-        incrementConsumption.with(consumption, villageId);
+        incrementConsumption.with(consumptionValue, villageIdValue);
 
         // assertion
-        verify(consumptionRepository).insert(consumption, villageId);
+        verify(consumptionRepository).insert(eq(consumption), eq(villageId));
     }
 }

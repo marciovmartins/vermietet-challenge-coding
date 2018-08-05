@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import vermietet.challenge.coding.village.Village;
 
 @RestController
 @SuppressWarnings("unused")
@@ -18,14 +17,14 @@ public class ConsumptionController {
     }
 
     @PostMapping("/counter_callback")
-    public void incrementConsumption(@RequestBody ConsumptionDTO input) { // TODO: tests need to be implemented.
-        Consumption consumption = new Consumption(input.getAmount());
-        Village.Id villageId = new Village.Id(input.getCounterId());
-
-        incrementConsumption.with(consumption, villageId);
+    public void incrementConsumption(@RequestBody Input input) { // TODO: tests need to be implemented.
+        incrementConsumption.with(
+                input.getAmount(),
+                input.getCounterId()
+        );
     }
 
-    static class ConsumptionDTO {
+    static class Input {
         @JsonProperty("counter_id")
         private Integer counterId;
         @JsonProperty("amount")
@@ -40,4 +39,3 @@ public class ConsumptionController {
         }
     }
 }
-

@@ -9,7 +9,10 @@ public class IncrementConsumption {
         this.consumptionRepository = consumptionRepository;
     }
 
-    void with(Consumption consumption, Village.Id villageId) {
-        consumptionRepository.insert(consumption, villageId);
+    void with(Double consumption, Integer villageId) {
+        consumptionRepository.insert(
+                new Consumption(consumption),
+                new Village.Id(villageId)
+        );
     }
 }
