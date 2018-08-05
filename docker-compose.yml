@@ -17,14 +17,15 @@ services:
       - JDBC_URL=jdbc:mysql://db_test:3306/vermietet
       - JDBC_USERNAME=root
       - JDBC_PASSWORD=
+      - GRADLE_USER_HOME=/usr/src/vermietet/.gradle-test
       - GRADLE_HOME=/usr/src/vermietet/.gradle-test
-      - GRADLE_OPTS=-Dorg.gradle.project.buildDir=/usr/src/vermietet/build-test
+      - GRADLE_OPTS=-Dorg.gradle.project.buildDir=/usr/src/vermietet/build-test -Dgradle.user.home=/usr/src/vermietet/.gradle-test
     ports:
       - 13002:8080
     volumes:
       - ./:/usr/src/vermietet
     working_dir: /usr/src/vermietet
-    command: ./gradlew bootRun
+    command: ./gradlew --project-cache-dir=/usr/src/vermietet/.gradle-test bootRun
     depends_on:
       - db_test
   db_test:
