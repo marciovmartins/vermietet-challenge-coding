@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 
 public class VillageControllerTest extends JdbcTest {
     @Test
-    public void getVillageById() throws Exception {
+    public void getVillageById() throws Exception { // TODO: do not touch the database.
         // setup
         JSONObject expectedJson = new JSONObject();
         expectedJson.put("id", 1);

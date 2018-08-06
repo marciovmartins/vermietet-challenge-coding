@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @SuppressWarnings("unused")
-public class ConsumptionController {
+public class SpringConsumptionController {
     private final IncrementConsumption incrementConsumption;
 
     @Autowired
-    public ConsumptionController(IncrementConsumption incrementConsumption) {
+    public SpringConsumptionController(IncrementConsumption incrementConsumption) {
         this.incrementConsumption = incrementConsumption;
     }
 
