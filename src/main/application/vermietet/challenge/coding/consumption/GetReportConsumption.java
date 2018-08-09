@@ -5,11 +5,11 @@ import vermietet.challenge.coding.village.VillageRepository;
 
 import java.util.List;
 
-class GetReportConsumption {
+public class GetReportConsumption {
     private final ReportConsumptionRepository reportConsumptionRepository;
     private final VillageRepository villageRepository;
 
-    GetReportConsumption(
+    public GetReportConsumption(
             ReportConsumptionRepository reportConsumptionRepository,
             VillageRepository villageRepository
     ) {

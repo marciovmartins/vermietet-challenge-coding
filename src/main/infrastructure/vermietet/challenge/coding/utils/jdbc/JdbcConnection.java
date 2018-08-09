@@ -30,5 +30,4 @@ public class JdbcConnection {
             super(e);
         }
     }
-
 }
