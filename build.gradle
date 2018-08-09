@@ -33,29 +33,23 @@ dependencies {
 }
 
 sourceSets {
-    main {
-        java {
-            srcDirs = ["src/main/application", "src/main/domain", "src/main/infrastructure"]
-        }
-    }
-    test {
-        java {
-            srcDirs = ["src/test/application", "src/test/domain"]
-        }
-    }
     integrationTest {
         java {
-            srcDirs = ["src/integration-test/infrastructure"]
+            srcDirs = ["src/integration-test/java"]
             compileClasspath += main.output
             runtimeClasspath += main.output
         }
     }
     acceptanceTest {
         java {
-            srcDirs = ["src/acceptance-test/infrastructure"]
+            srcDirs = ["src/acceptance-test/java"]
             compileClasspath += main.output
             runtimeClasspath += main.output
         }
+        resources {
+            srcDirs = ["src/acceptance-test/resources"]
+        }
+
     }
 }
 
@@ -86,15 +80,6 @@ acceptanceTest.mustRunAfter integrationTest
 
 jacocoTestReport {
     executionData(test, integrationTest, acceptanceTest)
-    additionalSourceDirs = files(
-            sourceSets.main.allSource.srcDirs,
-    )
-    sourceDirectories = files(
-            sourceSets.main.allSource.srcDirs,
-    )
-    classDirectories = files(
-            sourceSets.main.output,
-    )
     reports {
         xml.enabled = false
         html.enabled = true
@@ -107,7 +92,7 @@ idea {
     module {
         testSourceDirs += project.sourceSets.integrationTest.java.srcDirs
         testSourceDirs += project.sourceSets.acceptanceTest.java.srcDirs
-        testSourceDirs += project.sourceSets.integrationTest.resources.srcDirs
-        testSourceDirs += project.sourceSets.acceptanceTest.resources.srcDirs
+        testResourceDirs += project.sourceSets.integrationTest.resources.srcDirs
+        testResourceDirs += project.sourceSets.acceptanceTest.resources.srcDirs
     }
 }
