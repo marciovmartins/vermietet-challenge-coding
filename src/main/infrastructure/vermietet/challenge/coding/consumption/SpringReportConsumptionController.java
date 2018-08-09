@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 
 @RestController
 @SuppressWarnings("unused")
-public class ReportConsumptionController { // TODO: tests need to be implemented.
+public class SpringReportConsumptionController { // TODO: tests need to be implemented.
     private final GetReportConsumption getReportConsumption;
 
     @Autowired
-    public ReportConsumptionController(GetReportConsumption getReportConsumption) {
+    public SpringReportConsumptionController(GetReportConsumption getReportConsumption) {
         this.getReportConsumption = getReportConsumption;
     }
 

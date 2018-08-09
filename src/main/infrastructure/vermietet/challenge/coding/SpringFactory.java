@@ -3,6 +3,9 @@ package vermietet.challenge.coding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import vermietet.challenge.coding.consumption.ConsumptionRepository;
+import vermietet.challenge.coding.consumption.IncrementConsumption;
+import vermietet.challenge.coding.consumption.JdbcConsumptionRepository;
 import vermietet.challenge.coding.utils.jdbc.JdbcConnection;
 import vermietet.challenge.coding.village.GetVillage;
 import vermietet.challenge.coding.village.JdbcVillageRepository;
@@ -31,5 +34,17 @@ public class SpringFactory {
     @Bean
     public Environment buildEnvironment() {
         return new LocalEnvironment();
+    }
+
+    @Bean
+    @Autowired
+    public IncrementConsumption buildIncrementConsumption(ConsumptionRepository consumptionRepository) {
+        return new IncrementConsumption(consumptionRepository);
+    }
+
+    @Bean
+    @Autowired
+    public ConsumptionRepository buildConsumptionRepository(JdbcConnection jdbcConnection) {
+        return new JdbcConsumptionRepository(jdbcConnection);
     }
 }

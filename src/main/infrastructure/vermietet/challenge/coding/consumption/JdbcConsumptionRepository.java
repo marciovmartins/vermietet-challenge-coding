@@ -1,7 +1,5 @@
 package vermietet.challenge.coding.consumption;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import vermietet.challenge.coding.utils.jdbc.JdbcConnection;
 import vermietet.challenge.coding.utils.jdbc.JdbcExecutionErrorException;
 import vermietet.challenge.coding.village.Village;
@@ -12,12 +10,10 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
 
-@Repository
 public class JdbcConsumptionRepository implements ConsumptionRepository {
     private final Connection connection;
 
-    @Autowired
-    JdbcConsumptionRepository(JdbcConnection jdbcConnection) {
+    public JdbcConsumptionRepository(JdbcConnection jdbcConnection) {
         connection = jdbcConnection.instance();
     }
 
