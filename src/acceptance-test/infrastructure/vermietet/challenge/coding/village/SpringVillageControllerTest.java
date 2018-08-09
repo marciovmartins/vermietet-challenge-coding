@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 
 import static org.junit.Assert.assertEquals;
 
-public class VillageControllerTest extends JdbcTest {
+public class SpringVillageControllerTest extends JdbcTest {
     @Test
     public void getVillageById() throws Exception { // TODO: do not touch the database.
         // setup

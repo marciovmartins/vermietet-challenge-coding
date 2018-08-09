@@ -9,11 +9,11 @@ import java.util.HashMap;
 
 @RestController
 @SuppressWarnings("unused")
-public class VillageController {
+public class SpringVillageController {
     private final GetVillage getVillage;
 
     @Autowired
-    public VillageController(GetVillage getVillage) {
+    public SpringVillageController(GetVillage getVillage) {
         this.getVillage = getVillage;
     }
 

@@ -1,13 +1,11 @@
 package vermietet.challenge.coding.utils.jdbc;
 
-import org.springframework.stereotype.Component;
 import vermietet.challenge.coding.Environment;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-@Component
 public class JdbcConnection {
     private final Environment environment;
 
