@@ -7,3 +7,9 @@ up:
 
 test:
 	./gradlew test
+
+check: prepare-check
+	./gradlew check --rerun-tasks
+
+prepare-check:
+	docker-compose up -d app_test

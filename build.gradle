@@ -64,6 +64,16 @@ configurations {
     acceptanceTestImplementation.extendsFrom testImplementation
     acceptanceTestRuntimeOnly.extendsFrom testRuntimeOnly
 }
+
+tasks.withType(Test) {
+    jacoco {
+        destinationFile = file("${buildDir}/jacoco/output/jacoco.exec")
+        classDumpDir = file("${buildDir}/jacoco/output/classdump")
+        includes = ["vermietet.*"]
+        excludes = ["*Mockito*"]
+    }
+}
+
 task integrationTest(type: Test) {
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
@@ -78,6 +88,16 @@ task acceptanceTest(type: Test) {
 check.dependsOn acceptanceTest
 acceptanceTest.mustRunAfter integrationTest
 
+task afterAcceptanceTest(type: Exec) {
+    commandLine './scripts/jacoco-run.sh'
+    //noinspection GroovyAssignabilityCheck
+    standardOutput new ByteArrayOutputStream()
+    //noinspection GroovyAssignabilityCheck
+    errorOutput    new ByteArrayOutputStream()
+}
+check.dependsOn(afterAcceptanceTest)
+afterAcceptanceTest.mustRunAfter(acceptanceTest)
+
 jacocoTestReport {
     executionData(test, integrationTest, acceptanceTest)
     reports {
@@ -86,7 +106,15 @@ jacocoTestReport {
     }
 }
 check.dependsOn jacocoTestReport
-acceptanceTest.finalizedBy jacocoTestReport
+afterAcceptanceTest.finalizedBy jacocoTestReport
+
+bootRun {
+    if ( project.hasProperty('jvmArgs') ) {
+        //noinspection GroovyAssignabilityCheck
+        jvmArgs = (project.jvmArgs.split("\\s+") as List)
+
+    }
+}
 
 idea {
     module {

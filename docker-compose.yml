@@ -9,7 +9,7 @@ services:
     ports:
       - 13000:3306
     volumes:
-      - ./setup/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+      - ./scripts/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
 
   app_test:
     image: openjdk:8-jdk-alpine
@@ -19,13 +19,14 @@ services:
       - JDBC_PASSWORD=
       - GRADLE_USER_HOME=/usr/src/vermietet/.gradle-test
       - GRADLE_HOME=/usr/src/vermietet/.gradle-test
-      - GRADLE_OPTS=-Dorg.gradle.project.buildDir=/usr/src/vermietet/build-test -Dgradle.user.home=/usr/src/vermietet/.gradle-test
     ports:
       - 13002:8080
+      - 13003:6300
     volumes:
       - ./:/usr/src/vermietet
+      - ./jacoco:/jacoco
     working_dir: /usr/src/vermietet
-    command: ./gradlew --project-cache-dir=/usr/src/vermietet/.gradle-test bootRun
+    command: ./gradlew -PjvmArgs="-javaagent:/jacoco/jacocoagent.jar=output=tcpserver,address=*,includes=vermietet.*,destfile=build/jacoco/output/jacoco.exec,classdumpdir=build/jacoco/output/classdump" -Dorg.gradle.project.buildDir=/usr/src/vermietet/build-test -Dgradle.user.home=/usr/src/vermietet/.gradle-test --project-cache-dir=/usr/src/vermietet/.gradle-test bootRun
     depends_on:
       - db_test
   db_test:
@@ -36,4 +37,4 @@ services:
     ports:
       - 13001:3306
     volumes:
-      - ./setup/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+      - ./scripts/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
