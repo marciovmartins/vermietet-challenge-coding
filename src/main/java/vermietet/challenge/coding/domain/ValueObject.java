@@ -1,6 +1,6 @@
 package vermietet.challenge.coding.domain;
 
-public class ValueObject {
+public abstract class ValueObject {
     private final Object value;
 
     protected ValueObject(Object value) {
