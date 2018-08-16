@@ -120,7 +120,5 @@ idea {
     module {
         testSourceDirs += project.sourceSets.integrationTest.java.srcDirs
         testSourceDirs += project.sourceSets.acceptanceTest.java.srcDirs
-        testResourceDirs += project.sourceSets.integrationTest.resources.srcDirs
-        testResourceDirs += project.sourceSets.acceptanceTest.resources.srcDirs
     }
 }
