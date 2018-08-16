@@ -9,4 +9,7 @@ jdk:
 
 install: gradle wrapper --gradle-version 4.9
 script:
-  - make install && make prepare-check && ./gradlew check
+  - make install && make \
+    prepare-check && \
+    mkdir -p build/jacoco/output && chmod 0777 build/jacoco/output && \
+    ./gradlew check
