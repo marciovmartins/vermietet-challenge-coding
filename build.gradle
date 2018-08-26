@@ -67,10 +67,10 @@ configurations {
 
 tasks.withType(Test) {
     jacoco {
-        destinationFile = file("${buildDir}/jacoco/output/jacoco.exec")
+        destinationFile = file("${buildDir}/jacoco/output/jacoco.${name}.exec")
         classDumpDir = file("${buildDir}/jacoco/output/classdump")
         includes = ["vermietet.*"]
-        excludes = ["*Mockito*"]
+        excludes = ["*Mockito*", "*Test*"]
     }
 }
 
@@ -101,18 +101,19 @@ afterAcceptanceTest.mustRunAfter(acceptanceTest)
 jacocoTestReport {
     executionData(test, integrationTest, acceptanceTest)
     reports {
-        xml.enabled = false
+        xml.enabled = true
+        xml.destination file("${buildDir}/reports/jacoco/report.xml")
         html.enabled = true
     }
 }
 check.dependsOn jacocoTestReport
 afterAcceptanceTest.finalizedBy jacocoTestReport
 
+
 bootRun {
     if ( project.hasProperty('jvmArgs') ) {
         //noinspection GroovyAssignabilityCheck
         jvmArgs = (project.jvmArgs.split("\\s+") as List)
-
     }
 }
 

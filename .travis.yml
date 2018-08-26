@@ -9,7 +9,12 @@ jdk:
 
 install: gradle wrapper --gradle-version 4.9
 script:
-  - mkdir -p build/jacoco/output && chmod 0777 build/jacoco/output &&
+  - sudo mkdir -p build/jacoco/output &&
+    sudo touch build/jacoco/output/jacoco.exec &&
+    sudo chmod -Rf 0777 build &&
     make install &&
-    make prepare-check &&
-    ./gradlew check
+    make check
+  - ls -lha build/jacoco/output
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

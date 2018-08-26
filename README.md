@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/marciovmartins/vermietet-challenge-coding.svg?branch=master)](https://travis-ci.org/marciovmartins/vermietet-challenge-coding)
+[![codecov](https://codecov.io/gh/marciovmartins/vermietet-challenge-coding/branch/master/graph/badge.svg)](https://codecov.io/gh/marciovmartins/vermietet-challenge-coding)
 
 # Architecture & Coding
 
