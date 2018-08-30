@@ -3,13 +3,14 @@ install:
 
 up:
 	docker-compose up -d
-	JDBC_URL=jdbc:mysql://localhost:13000/vermietet JDBC_USERNAME=root JDBC_PASSWORD= ./gradlew bootRun
+	JDBC_URL=jdbc:mysql://localhost:13000/vermietet JDBC_USERNAME=postgres JDBC_PASSWORD=mysecretpassword ./gradlew bootRun
 
 test:
 	./gradlew test
 
 check: prepare-check
-	./gradlew check --rerun-tasks
+	./gradlew clean check
 
 prepare-check:
 	docker-compose up -d app_test
+	./gradlew flywayMigrate -i

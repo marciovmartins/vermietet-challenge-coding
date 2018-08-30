@@ -2,21 +2,20 @@ version: '3'
 
 services:
   db:
-    image: mysql:5.5.51
+    image: postgres:10.5-alpine
     environment:
-      - MYSQL_DATABASE=vermietet
-      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - POSTGRES_DB=vermietet
     ports:
-      - 13000:3306
+      - 13000:5432
     volumes:
       - ./scripts/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
 
   app_test:
     image: openjdk:8-jdk-alpine
     environment:
-      - JDBC_URL=jdbc:mysql://db_test:3306/vermietet
-      - JDBC_USERNAME=root
-      - JDBC_PASSWORD=
+      - JDBC_URL=jdbc:postgresql://db_test:5432/vermietet
+      - JDBC_USERNAME=postgres
+      - JDBC_PASSWORD=mysecretpassword
     ports:
       - 13002:8080
       - 13003:6300
@@ -32,11 +31,8 @@ services:
     depends_on:
       - db_test
   db_test:
-    image: mysql:5.5.51
+    image: postgres:10.5-alpine
     environment:
-      - MYSQL_DATABASE=vermietet
-      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - POSTGRES_DB=vermietet
     ports:
-      - 13001:3306
-    volumes:
-      - ./scripts/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+      - 13001:5432

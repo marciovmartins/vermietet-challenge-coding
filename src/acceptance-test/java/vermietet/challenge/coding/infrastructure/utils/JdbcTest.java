@@ -15,9 +15,9 @@ public abstract class JdbcTest { // TODO: duplicated from integration-test src. 
     @BeforeClass
     static public void tearUp() {
         Environment environment = mock(Environment.class);
-        when(environment.get("JDBC_URL")).thenReturn("jdbc:mysql://localhost:13001/vermietet");
-        when(environment.get("JDBC_USERNAME")).thenReturn("root");
-        when(environment.get("JDBC_PASSWORD")).thenReturn("");
+        when(environment.get("JDBC_URL")).thenReturn("jdbc:postgresql://localhost:13001/vermietet");
+        when(environment.get("JDBC_USERNAME")).thenReturn("postgres");
+        when(environment.get("JDBC_PASSWORD")).thenReturn("mysecretpassword");
         connection = new JdbcConnection(environment);
     }
 

@@ -7,6 +7,10 @@ buildscript {
     }
 }
 
+plugins {
+    id "org.flywaydb.flyway" version "5.1.4"
+}
+
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
@@ -22,7 +26,7 @@ repositories {
 }
 
 dependencies {
-    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.3.RELEASE'
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
@@ -109,12 +113,17 @@ jacocoTestReport {
 check.dependsOn jacocoTestReport
 afterAcceptanceTest.finalizedBy jacocoTestReport
 
-
 bootRun {
     if ( project.hasProperty('jvmArgs') ) {
         //noinspection GroovyAssignabilityCheck
         jvmArgs = (project.jvmArgs.split("\\s+") as List)
     }
+}
+
+flyway {
+    url = 'jdbc:postgresql://localhost:13001/vermietet'
+    user = 'postgres'
+    password = 'mysecretpassword'
 }
 
 idea {

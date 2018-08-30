@@ -29,7 +29,7 @@ public class JdbcReportConsumptionRepository implements ReportConsumptionReposit
                         "INNER JOIN villages v ON (v.id = c.village_id)" + // TODO: should I include villages in query?
                         "WHERE c.village_id IN (%s) " +
                         "  AND datetime >= ?" +
-                        "GROUP BY c.village_id",
+                        "GROUP BY c.village_id, v.name",
                 preparePlaceHolders(villages.size())
         );
 
@@ -58,7 +58,7 @@ public class JdbcReportConsumptionRepository implements ReportConsumptionReposit
     }
 
     private Object[] getVillageIdsFrom(List<Village> villages) {
-        return villages.stream().map(v -> v.id().toString()).toArray();
+        return villages.stream().map(v -> Integer.parseInt(v.id().toString())).toArray();
     }
 
     private Timestamp getDateInHoursFrom(LastHours lastHours) {
