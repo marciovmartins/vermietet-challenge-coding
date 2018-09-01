@@ -76,31 +76,33 @@ tasks.withType(Test) {
         includes = ["vermietet.*"]
         excludes = ["*Mockito*", "*Test*"]
     }
+    onlyIf { test.state.executed }
 }
 
 task integrationTest(type: Test) {
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
+    mustRunAfter test
 }
 check.dependsOn integrationTest
-integrationTest.mustRunAfter test
 
 task acceptanceTest(type: Test) {
     testClassesDirs = sourceSets.acceptanceTest.output.classesDirs
     classpath = sourceSets.acceptanceTest.runtimeClasspath
+    mustRunAfter integrationTest
 }
 check.dependsOn acceptanceTest
-acceptanceTest.mustRunAfter integrationTest
 
 task afterAcceptanceTest(type: Exec) {
     commandLine './scripts/jacoco-run.sh'
     //noinspection GroovyAssignabilityCheck
     standardOutput new ByteArrayOutputStream()
     //noinspection GroovyAssignabilityCheck
-    errorOutput    new ByteArrayOutputStream()
+    errorOutput new ByteArrayOutputStream()
+    mustRunAfter(acceptanceTest)
+    onlyIf { test.state.executed }
 }
 check.dependsOn(afterAcceptanceTest)
-afterAcceptanceTest.mustRunAfter(acceptanceTest)
 
 jacocoTestReport {
     executionData(test, integrationTest, acceptanceTest)
@@ -109,12 +111,13 @@ jacocoTestReport {
         xml.destination file("${buildDir}/reports/jacoco/report.xml")
         html.enabled = true
     }
+    onlyIf { test.state.executed }
 }
 check.dependsOn jacocoTestReport
 afterAcceptanceTest.finalizedBy jacocoTestReport
 
 bootRun {
-    if ( project.hasProperty('jvmArgs') ) {
+    if (project.hasProperty('jvmArgs')) {
         //noinspection GroovyAssignabilityCheck
         jvmArgs = (project.jvmArgs.split("\\s+") as List)
     }
