@@ -1,1 +1,1 @@
-web: ./gradlew bootRun
+web: JAVA_OPTS='-Xmx384m -Xms384m -Xss512k -XX:+UseCompressedOops' ./gradlew bootRun
