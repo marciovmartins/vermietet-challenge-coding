@@ -1,38 +1,25 @@
 version: '3'
 
 services:
+  app:
+    image: vermietet-challenge-coding:latest
+    build: .
+    environment:
+      - JDBC_URL=jdbc:postgresql://db:5432/vermietet
+      - JDBC_USERNAME=postgres
+      - JDBC_PASSWORD=mysecretpassword
+    ports:
+      - 13000:8080
+    volumes:
+      - .:/app
+    command: ./gradlew -PjvmArgs="-javaagent:/app/jacoco/jacocoagent.jar=output=tcpserver,address=*,includes=vermietet.*,destfile=build/jacoco/output/jacoco.acceptanceTest.exec,classdumpdir=build/jacoco/output/classdump" bootRun
+    depends_on:
+      - db
   db:
     image: postgres:10.5-alpine
     environment:
       - POSTGRES_DB=vermietet
-    ports:
-      - 13000:5432
     volumes:
-      - ./scripts/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
-
-  app_test:
-    image: openjdk:8-jdk-alpine
-    environment:
-      - JDBC_URL=jdbc:postgresql://db_test:5432/vermietet
-      - JDBC_USERNAME=postgres
-      - JDBC_PASSWORD=mysecretpassword
-    ports:
-      - 13002:8080
-      - 13003:6300
-    volumes:
-      - ./gradlew:/usr/src/vermietet/gradlew:ro
-      - ./build.gradle:/usr/src/vermietet/build.gradle:ro
-      - ./gradle/wrapper:/usr/src/vermietet/gradle/wrapper:ro
-      - ./Makefile:/usr/src/vermietet/Makefile:ro
-      - ./src:/usr/src/vermietet/src:ro
-      - ./jacoco:/jacoco:ro
-    working_dir: /usr/src/vermietet
-    command: ./gradlew -PjvmArgs="-javaagent:/jacoco/jacocoagent.jar=output=tcpserver,address=*,includes=vermietet.*,destfile=build/jacoco/output/jacoco.acceptanceTest.exec,classdumpdir=build/jacoco/output/classdump" bootRun
-    depends_on:
-      - db_test
-  db_test:
-    image: postgres:10.5-alpine
-    environment:
-      - POSTGRES_DB=vermietet
+      - ./src/main/resources/db/migration:/docker-entrypoint-initdb.d:ro
     ports:
       - 13001:5432

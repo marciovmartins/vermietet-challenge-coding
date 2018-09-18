@@ -23,7 +23,7 @@ public class SpringVillageControllerTest extends JdbcTest {
         stmt.execute();
 
         // execution
-        String result = Request.Get("http://localhost:13002/counter?id=1")
+        String result = Request.Get("http://app:8080/counter?id=1")
                 .connectTimeout(1000)
                 .socketTimeout(1000)
                 .execute().returnContent().asString();

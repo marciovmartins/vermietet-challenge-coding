@@ -15,7 +15,7 @@ public abstract class JdbcTest {
     @BeforeClass
     static public void tearUp() {
         Environment environment = mock(Environment.class);
-        when(environment.get("JDBC_URL")).thenReturn("jdbc:postgresql://localhost:13001/vermietet");
+        when(environment.get("JDBC_URL")).thenReturn("jdbc:postgresql://db:5432/vermietet");
         when(environment.get("JDBC_USERNAME")).thenReturn("postgres");
         when(environment.get("JDBC_PASSWORD")).thenReturn("mysecretpassword");
         connection = new JdbcConnection(environment);

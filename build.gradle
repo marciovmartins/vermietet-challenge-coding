@@ -7,10 +7,6 @@ buildscript {
     }
 }
 
-plugins {
-    id "org.flywaydb.flyway" version "5.1.4"
-}
-
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
@@ -76,7 +72,6 @@ tasks.withType(Test) {
         includes = ["vermietet.*"]
         excludes = ["*Mockito*", "*Test*"]
     }
-    onlyIf { test.state.executed }
 }
 
 task integrationTest(type: Test) {
@@ -90,19 +85,17 @@ task acceptanceTest(type: Test) {
     testClassesDirs = sourceSets.acceptanceTest.output.classesDirs
     classpath = sourceSets.acceptanceTest.runtimeClasspath
     mustRunAfter integrationTest
+    doLast {
+        exec {
+            commandLine './scripts/jacoco-run.sh'
+            //noinspection GroovyAssignabilityCheck
+            standardOutput new ByteArrayOutputStream()
+            //noinspection GroovyAssignabilityCheck
+            errorOutput new ByteArrayOutputStream()
+        }
+    }
 }
 check.dependsOn acceptanceTest
-
-task afterAcceptanceTest(type: Exec) {
-    commandLine './scripts/jacoco-run.sh'
-    //noinspection GroovyAssignabilityCheck
-    standardOutput new ByteArrayOutputStream()
-    //noinspection GroovyAssignabilityCheck
-    errorOutput new ByteArrayOutputStream()
-    mustRunAfter(acceptanceTest)
-    onlyIf { test.state.executed }
-}
-check.dependsOn(afterAcceptanceTest)
 
 jacocoTestReport {
     executionData(test, integrationTest, acceptanceTest)
@@ -114,19 +107,13 @@ jacocoTestReport {
     onlyIf { test.state.executed }
 }
 check.dependsOn jacocoTestReport
-afterAcceptanceTest.finalizedBy jacocoTestReport
+acceptanceTest.finalizedBy jacocoTestReport
 
 bootRun {
     if (project.hasProperty('jvmArgs')) {
         //noinspection GroovyAssignabilityCheck
         jvmArgs = (project.jvmArgs.split("\\s+") as List)
     }
-}
-
-flyway {
-    url = 'jdbc:postgresql://localhost:13001/vermietet'
-    user = 'postgres'
-    password = 'mysecretpassword'
 }
 
 idea {

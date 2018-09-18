@@ -35,12 +35,12 @@ public class SpringConsumptionControllerTest extends JdbcTest {
         expectedJson.put(consumptionReportJson);
 
         // execution
-        Request.Post("http://localhost:13002/counter_callback")
+        Request.Post("http://app:8080/counter_callback")
                 .bodyString(consumptionBody.toString(), ContentType.APPLICATION_JSON)
                 .connectTimeout(1000)
                 .socketTimeout(1000)
                 .execute().returnContent().asString();
-        String reportResult = Request.Get("http://localhost:13002/consumption_report?duration=1h")
+        String reportResult = Request.Get("http://app:8080/consumption_report?duration=1h")
                 .connectTimeout(1000)
                 .socketTimeout(1000)
                 .execute().returnContent().asString();
