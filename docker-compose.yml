@@ -10,9 +10,10 @@ services:
       - JDBC_PASSWORD=mysecretpassword
     ports:
       - 13000:8080
+      - 13002:5005
     volumes:
       - .:/app
-    command: ./gradlew -PjvmArgs="-javaagent:/app/jacoco/jacocoagent.jar=output=tcpserver,address=*,includes=vermietet.*,destfile=build/jacoco/output/jacoco.acceptanceTest.exec,classdumpdir=build/jacoco/output/classdump" bootRun
+    command: ./gradlew -PjvmArgs="-javaagent:/app/jacoco/jacocoagent.jar=output=tcpserver,address=*,includes=vermietet.*,destfile=build/jacoco/output/jacoco.acceptanceTest.exec,classdumpdir=build/jacoco/output/classdump -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005" bootRun
     depends_on:
       - db
   db:
