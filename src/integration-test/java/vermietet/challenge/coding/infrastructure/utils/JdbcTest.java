@@ -14,10 +14,19 @@ public abstract class JdbcTest {
 
     @BeforeClass
     static public void tearUp() {
+        String jdbcUrl = System.getenv("JDBC_URL");
+        if (jdbcUrl == null) jdbcUrl = "jdbc:postgresql://db:5432/vermietet"; // TODO: extract to external class.
+
+        String jdbcUsername = System.getenv("JDBC_USERNAME");
+        if (jdbcUsername == null) jdbcUrl = "postgres"; // TODO: extract to external class.
+
+        String jdbcPassword = System.getenv("JDBC_PASSWORD");
+        if (jdbcPassword == null) jdbcPassword = "mysecretpassword"; // TODO: extract to external class.
+
         Environment environment = mock(Environment.class);
-        when(environment.get("JDBC_URL")).thenReturn("jdbc:postgresql://db:5432/vermietet");
-        when(environment.get("JDBC_USERNAME")).thenReturn("postgres");
-        when(environment.get("JDBC_PASSWORD")).thenReturn("mysecretpassword");
+        when(environment.get("JDBC_URL")).thenReturn(jdbcUrl);
+        when(environment.get("JDBC_USERNAME")).thenReturn(jdbcUsername);
+        when(environment.get("JDBC_PASSWORD")).thenReturn(jdbcPassword);
         connection = new JdbcConnection(environment);
     }
 

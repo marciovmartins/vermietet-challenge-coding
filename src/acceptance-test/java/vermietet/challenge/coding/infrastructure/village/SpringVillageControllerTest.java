@@ -13,6 +13,9 @@ public class SpringVillageControllerTest extends JdbcTest {
     @Test
     public void getVillageById() throws Exception { // TODO: do not touch the database.
         // setup
+        String baseUrl = System.getenv("BASE_URL");
+        if (baseUrl == null) baseUrl = "http://app:8080"; // TODO: extract to external class.
+
         JSONObject expectedJson = new JSONObject();
         expectedJson.put("id", 1);
         expectedJson.put("village_name", "Villarriba");
@@ -23,7 +26,7 @@ public class SpringVillageControllerTest extends JdbcTest {
         stmt.execute();
 
         // execution
-        String result = Request.Get("http://app:8080/counter?id=1")
+        String result = Request.Get(baseUrl + "/counter?id=1")
                 .connectTimeout(1000)
                 .socketTimeout(1000)
                 .execute().returnContent().asString();

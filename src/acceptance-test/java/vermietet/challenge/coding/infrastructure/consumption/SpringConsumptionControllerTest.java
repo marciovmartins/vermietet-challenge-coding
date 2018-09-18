@@ -15,6 +15,9 @@ public class SpringConsumptionControllerTest extends JdbcTest {
     @Test
     public void testInsertConsumptionAndGetConsumptionReport() throws Exception { // TODO: do not touch the database.
         // setup
+        String baseUrl = System.getenv("BASE_URL"); // TODO: extract to external class.
+        if (baseUrl == null) baseUrl = "http://app:8080";
+
         int villageId = 1;
         double consumption = 2.1;
         String villageName = "Stella de audax";
@@ -35,12 +38,12 @@ public class SpringConsumptionControllerTest extends JdbcTest {
         expectedJson.put(consumptionReportJson);
 
         // execution
-        Request.Post("http://app:8080/counter_callback")
+        Request.Post(baseUrl + "/counter_callback")
                 .bodyString(consumptionBody.toString(), ContentType.APPLICATION_JSON)
                 .connectTimeout(1000)
                 .socketTimeout(1000)
                 .execute().returnContent().asString();
-        String reportResult = Request.Get("http://app:8080/consumption_report?duration=1h")
+        String reportResult = Request.Get(baseUrl + "/consumption_report?duration=1h")
                 .connectTimeout(1000)
                 .socketTimeout(1000)
                 .execute().returnContent().asString();
