@@ -1,1 +1,1 @@
-web: JAVA_OPTS='-Xmx384m -Xms384m -Xss512k -XX:+UseCompressedOops' ./gradlew bootRun
+web: java $JAVA_OPTS -jar build/libs/app.jar --server.port=$PORT
