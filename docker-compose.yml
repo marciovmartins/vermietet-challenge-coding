@@ -2,8 +2,7 @@ version: '3'
 
 services:
   app:
-    image: vermietet-challenge-coding:latest
-    build: .
+    image: gradle:4.10.2-jdk
     environment:
       - JDBC_URL=jdbc:postgresql://db:5432/vermietet
       - JDBC_USERNAME=postgres
@@ -13,7 +12,8 @@ services:
       - 13002:5005
     volumes:
       - .:/app
-    command: ./gradlew -PjvmArgs="-javaagent:/app/jacoco/jacocoagent.jar=output=tcpserver,address=*,includes=vermietet.*,destfile=build/jacoco/output/jacoco.acceptanceTest.exec,classdumpdir=build/jacoco/output/classdump -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005" bootRun
+    working_dir: /app
+    command: gradle -PjvmArgs="-javaagent:/app/jacoco/jacocoagent.jar=output=tcpserver,address=*,includes=vermietet.*,destfile=build/jacoco/output/jacoco.acceptanceTest.exec,classdumpdir=build/jacoco/output/classdump -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005" bootRun
     depends_on:
       - db
   db:

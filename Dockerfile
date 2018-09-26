@@ -2,14 +2,6 @@ FROM openjdk:8-jdk-alpine
 
 WORKDIR /app
 
-COPY gradlew gradlew
-COPY gradle/wrapper gradle/wrapper
-RUN ./gradlew build
+COPY ./build/libs/app.jar /app/app.jar
 
-COPY build.gradle build.gradle
-COPY src src
-RUN ./gradlew build -x test -x integrationTest -x acceptanceTest
-
-EXPOSE 8080
-
-CMD ["./gradlew", "bootRun", "--no-daemon"]
+CMD java -jar /app/app.jar
