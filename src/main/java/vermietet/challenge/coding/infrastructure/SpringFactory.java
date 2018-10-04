@@ -37,6 +37,10 @@ public class SpringFactory {
 
     @Bean
     public Environment buildEnvironment() {
+        String environment = System.getenv("ENVIRONMENT");
+        if (environment != null && environment.equals("heroku")) {
+            return new HerokuEnvironment();
+        }
         return new LocalEnvironment();
     }
 

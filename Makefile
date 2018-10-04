@@ -20,4 +20,4 @@ clean: run
 
 build: run
 	docker-compose exec app gradle bootJar
-	docker build -t vermietet-challenge-coding:1.0.0 .
+	docker build -t vermietet-challenge-coding:latest .
