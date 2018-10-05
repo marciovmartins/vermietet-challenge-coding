@@ -7,7 +7,6 @@ language: java
 jdk:
   - openjdk8
 
-install: gradle wrapper --gradle-version 4.9
 script:
   - sudo mkdir -p build/jacoco/output
   - sudo touch build/jacoco/output/jacoco.exec

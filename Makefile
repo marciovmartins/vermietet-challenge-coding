@@ -5,6 +5,7 @@ install:
 
 run:
 	docker-compose up -d app
+	sh ./scripts/docker-running.sh
 
 stop:
 	docker-compose stop
