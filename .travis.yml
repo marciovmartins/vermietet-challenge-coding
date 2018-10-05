@@ -10,10 +10,10 @@ jdk:
 install: gradle wrapper --gradle-version 4.9
 script:
   - sudo mkdir -p build/jacoco/output &&
-    sudo touch build/jacoco/output/jacoco.exec &&
-    sudo chmod -Rf 0777 build &&
-    make install &&
-    make check
+  - sudo touch build/jacoco/output/jacoco.exec &&
+  - sudo chmod -Rf 0777 build &&
+  - make install &&
+  - make check
   - ls -lha build/jacoco/output
 
 after_success:
