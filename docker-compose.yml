@@ -7,13 +7,14 @@ services:
       - JDBC_URL=jdbc:postgresql://db:5432/vermietet
       - JDBC_USERNAME=postgres
       - JDBC_PASSWORD=mysecretpassword
+      - JAVA_OPTS=-Xmx2g -XX:MaxPermSize=2g
     ports:
       - 13000:8080
       - 13002:5005
     volumes:
       - .:/app
     working_dir: /app
-    command: gradle -PjvmArgs="-javaagent:/app/jacoco/jacocoagent.jar=output=tcpserver,address=*,includes=vermietet.*,destfile=build/jacoco/output/jacoco.acceptanceTest.exec,classdumpdir=build/jacoco/output/classdump -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005" bootRun
+    command: gradle -PjvmArgs="-Xmx2g -XX:MaxPermSize=2g -javaagent:/app/jacoco/jacocoagent.jar=output=tcpserver,address=*,includes=vermietet.*,destfile=build/jacoco/output/jacoco.acceptanceTest.exec,classdumpdir=build/jacoco/output/classdump -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005" bootRun
     depends_on:
       - db
   db:
