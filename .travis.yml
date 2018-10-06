@@ -12,6 +12,7 @@ script:
   - sudo touch build/jacoco/output/jacoco.exec
   - sudo chmod -Rf 0777 build
   - make install
+  - make run
   - sleep 30s
   - make check
   - ls -lha build/jacoco/output
